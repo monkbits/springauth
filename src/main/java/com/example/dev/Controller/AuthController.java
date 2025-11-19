@@ -9,13 +9,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth/")
+@RequestMapping("/auth")
 public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -29,6 +26,11 @@ public class AuthController {
     @Autowired
     private JwtUtil jwtUtils;
 
+    @GetMapping
+    public String authpage(){
+        return "welcome!!";
+    }
+
     @PostMapping("/signin")
     public String authenticateUser(@RequestBody User user){
         Authentication authentication = authenticationManager.authenticate(
@@ -38,6 +40,8 @@ public class AuthController {
         return jwtUtils.generateToken(userDetails.getUsername());
     }
 
+
+    @PostMapping("/signup")
     public String registerUser(@RequestBody User user){
         if(userRepository.existsByUsername(user.getUsername())){
             return "error";

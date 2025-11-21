@@ -45,8 +45,8 @@ public class HealthController {
 
     @RequestMapping(value = "/get_cached_weight_logs", method = {RequestMethod.GET, RequestMethod.POST})
     public List<WeightLog> getCacheWeightLog(){
-        String json = redisTemplate.opsForValue().get("weightLogs").toString();
-        if(json == null) return new ArrayList<>();
+        String json = (String) redisTemplate.opsForValue().get("weightLogs");
+        if(json == null || json.isEmpty()) return new ArrayList<>();
         Type type = new TypeToken<List<WeightLog>>(){}.getType();
         return gson.fromJson(json ,type);
     }

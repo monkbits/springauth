@@ -2,6 +2,7 @@ package com.example.dev.Entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,6 +30,12 @@ public class WeightLog {
         this.weight = weight;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    public WeightLog(Long id, LocalDate date, Float f) {
+        this.id = id;
+        this.date = date;
+        this.weight = f;
     }
 
     @PrePersist

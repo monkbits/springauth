@@ -50,7 +50,7 @@ public class WebSecurityConfig {
                     sessionRequests.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             ).authorizeHttpRequests(authorizeRequests ->
                     authorizeRequests
-                            .requestMatchers("/product/**", "/auth/**", "/health/**").permitAll()
+                            .requestMatchers("/product/**", "/auth/**", "/health/**","/files/**","/reminder/**").permitAll()
                             .anyRequest().authenticated()
             );
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
